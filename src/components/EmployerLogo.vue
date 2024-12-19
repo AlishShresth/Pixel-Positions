@@ -4,8 +4,8 @@ import { defineProps } from "vue";
 defineProps({
   employer: Object,
   width: {
-    type: String,
-    default: "90",
+    type: Number,
+    default: 90,
   },
 });
 </script>

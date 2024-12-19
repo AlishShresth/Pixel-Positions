@@ -12,27 +12,6 @@ const formData = reactive({
 import { useAuthStore } from "../../stores/auth";
 
 const authStore = useAuthStore();
-
-// const handleSubmit = async (apiRoute, formData) => {
-//   try {
-//     console.log(formData);
-//     const res = await axios.post(`api/${apiRoute}`, JSON.stringify(formData), {
-//       header: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     const data = res.data;
-//     console.log(data);
-//     toast.success("Login successful");
-//     localStorage.setItem("token", data.token);
-//     localStorage.setItem("user", data.user);
-//     router.push("/");
-//   } catch (err) {
-//     console.error("Error Logging in: ", err);
-//     toast.error("Login failed");
-//   }
-// };
 </script>
 
 <template>

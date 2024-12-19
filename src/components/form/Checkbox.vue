@@ -18,7 +18,7 @@ defineEmits(["update:modelValue"]);
         :name="name"
         class="cursor-pointer"
         :checked="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @change="$emit('update:modelValue', $event.target.checked)"
       />
       <span class="pl-2">{{ label }}</span>
     </div>

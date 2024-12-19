@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useToast } from "vue-toastification";
 import HomeView from "../views/HomeView.vue";
 import JobsView from "../views/JobsView.vue";
 import JobView from "../views/JobView.vue";
@@ -7,7 +8,8 @@ import EditJobView from "../views/EditJobView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import RegisterView from "../views/Auth/RegisterView.vue";
 import LoginView from "../views/Auth/LoginView.vue";
-import { onMounted } from "vue";
+
+const toast = useToast();
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +43,9 @@ const router = createRouter({
       path: "/jobs/create",
       name: "add-job",
       component: CreateJobView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/jobs/edit/:id",
@@ -64,6 +69,7 @@ router.beforeEach((to, from, next) => {
     if (token) {
       next();
     } else {
+      toast.info("You need to sign in to post a job!");
       next("/login");
     }
   } else {
