@@ -17,7 +17,7 @@ export const useAuthStore = defineStore("authStore", {
   actions: {
     async register(apiRoute, formData) {
       try {
-        console.log(formData);
+        // console.log(formData);
         const res = await axios.post(
           `/api/${apiRoute}`,
           JSON.stringify(formData),
@@ -32,10 +32,10 @@ export const useAuthStore = defineStore("authStore", {
         const data = res.data;
         this.user = data.user;
         this.token = data.token;
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", data.user);
+        localStorage.setItem("token", this.token);
+        localStorage.setItem("user", this.user);
         router.push("/");
-        toast.success("Registration successful!");
+        toast.success("Registration successful!", { timeout: 3000 });
         console.log(data);
       } catch (error) {
         console.error("Error registering user:", error);
@@ -44,7 +44,7 @@ export const useAuthStore = defineStore("authStore", {
     },
     async login(apiRoute, formData) {
       try {
-        console.log(formData);
+        // console.log(formData);
 
         const res = await axios.post(
           `/api/${apiRoute}`,
@@ -56,17 +56,17 @@ export const useAuthStore = defineStore("authStore", {
             },
           }
         );
-        console.log("resonse", res);
+        console.log("response", res);
         const data = res.data;
         console.log("data", data);
         this.user = data.user;
         this.token = data.token;
-        console.log(this.user);
+        console.log("user", this.user);
 
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", data.user);
+        localStorage.setItem("token", this.token);
+        localStorage.setItem("user", this.user);
         router.push("/");
-        toast.success("Login successful!");
+        toast.success("Login successful!", { timeout: 3000 });
         console.log(data);
       } catch (error) {
         console.error("Error logging in", error);
@@ -92,7 +92,7 @@ export const useAuthStore = defineStore("authStore", {
         this.user = null;
         this.token = null;
         router.push("/");
-        toast.success("Logout successful!");
+        toast.success("Logout successful!", { timeout: 3000 });
       } catch (error) {
         console.error("Error logging out", error);
         toast.error("Logout failed!");

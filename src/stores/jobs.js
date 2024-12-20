@@ -13,14 +13,25 @@ export const useJobsStore = defineStore("jobsStore", {
       recentJobs: [],
       isJobLoading: false,
       isJobPosting: false,
+      currentJob: {},
     };
   },
   actions: {
+    async getJob(jobId) {
+      try {
+        this.isJobLoading = true;
+        const res = await axios.get(`/api/jobs/${jobId}`);
+        const data = res.data.job;
+        this.currentJob = data;
+        this.isJobLoading = false;
+      } catch (err) {
+        console.log(err);
+      }
+    },
     async getJobs() {
       try {
         this.isJobLoading = true;
         const res = await axios.get(`/api/`);
-        // console.log(res.data);
         const data = res.data.jobs;
         this.isJobLoading = false;
         this.featuredJobs = data[1];
@@ -58,5 +69,17 @@ export const useJobsStore = defineStore("jobsStore", {
         });
       }
     },
+
+    async editJob(apiRoute, formData) {
+      try {
+      } catch (err) {
+        console.error("Error editing job", err);
+        toast.error("Job editing failed!", {
+          timeout: 3000,
+        });
+      }
+    },
+
+    async deleteJob(apiRoute, formData) {},
   },
 });

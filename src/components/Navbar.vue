@@ -53,10 +53,21 @@ const authStore = useAuthStore();
           ]"
           >Post a job</RouterLink
         >
+        <RouterLink
+          to="/jobs/update"
+          :class="[
+            isActiveLink('/jobs/edit')
+              ? 'underline underline-white/10 underline-offset-4'
+              : 'hover:underline hover:underline-white/10 hover:underline-offset-4',
+            'px-3',
+            'py-2',
+          ]"
+          >Update Job</RouterLink
+        >
       </div>
       <div v-show="authStore.isAuthenticated" class="space-x-6 font-bold flex">
         <RouterLink
-          to="#"
+          to="/"
           @click="authStore.logout()"
           :class="[
             isActiveLink('/logout')
