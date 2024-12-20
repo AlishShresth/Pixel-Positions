@@ -72,6 +72,25 @@ export const useJobsStore = defineStore("jobsStore", {
 
     async editJob(apiRoute, formData) {
       try {
+        const authStore = useAuthStore();
+        this.isJobPosting = true;
+        const res = await axios.patch(
+          `/api/${apiRoute}`,
+          JSON.stringify(formData),
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authStore.token}`,
+            },
+          }
+        );
+        console.log(res.data);
+        this.getJobs();
+        router.push("/jobs");
+        toast.success("Job updated successfully!", {
+          timeout: 3000,
+        });
       } catch (err) {
         console.error("Error editing job", err);
         toast.error("Job editing failed!", {

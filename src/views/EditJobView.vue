@@ -62,7 +62,10 @@ const handleDelete = (jobId) => {
 <template>
   <PageHeading>Edit job</PageHeading>
   <RotateLoader v-if="jobsStore.isJobLoading" />
-  <Form @submit.prevent="" v-if="!jobsStore.isJobLoading">
+  <Form
+    @submit.prevent="jobsStore.editJob(`/jobs/${jobId}`, formData)"
+    v-if="!jobsStore.isJobLoading"
+  >
     <FormInput
       name="title"
       label="Title"

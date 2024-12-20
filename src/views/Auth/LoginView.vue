@@ -25,6 +25,7 @@ const authStore = useAuthStore();
         type="email"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.email"
+        required
       />
     </div>
     <div class="mt-1">
@@ -35,6 +36,7 @@ const authStore = useAuthStore();
         type="password"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.password"
+        required
       />
     </div>
 

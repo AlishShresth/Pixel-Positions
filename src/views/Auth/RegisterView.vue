@@ -1,8 +1,5 @@
 <script setup>
 import { reactive } from "vue";
-import axios from "axios";
-// import router from "../../router";
-// import { useToast } from "vue-toastification";
 import { useAuthStore } from "../../stores/auth";
 import PageHeading from "../../components/PageHeading.vue";
 
@@ -25,30 +22,6 @@ const onFileSelected = (e) => {
     console.error("No file selected");
   }
 };
-
-// const toast = useToast();
-
-// const handleSubmit = async (apiRoute, formData) => {
-//   try {
-//     console.log(formData);
-//     const res = await axios.post(`/api/${apiRoute}`, JSON.stringify(formData), {
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "multipart/form-data",
-//       },
-//     });
-//     console.log(res.data);
-//     const data = res.data;
-//     localStorage.setItem("token", data.token);
-//     localStorage.setItem("user", data.user);
-//     toast.success("Registration successful!");
-//     router.push("/");
-//     console.log(data);
-//   } catch (error) {
-//     console.error("Error registering user:", error);
-//     toast.error("Registration failed!");
-//   }
-// };
 </script>
 
 <template>
@@ -66,6 +39,7 @@ const onFileSelected = (e) => {
         type="text"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.name"
+        required
       />
     </div>
     <div class="mt-1">
@@ -76,6 +50,7 @@ const onFileSelected = (e) => {
         type="email"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.email"
+        required
       />
     </div>
     <div class="mt-1">
@@ -86,6 +61,7 @@ const onFileSelected = (e) => {
         type="password"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.password"
+        required
       />
     </div>
     <div class="mt-1">
@@ -98,6 +74,7 @@ const onFileSelected = (e) => {
         type="password"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.password_confirmation"
+        required
       />
     </div>
     <div>
@@ -111,6 +88,7 @@ const onFileSelected = (e) => {
         type="text"
         class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
         v-model="formData.employer"
+        required
       />
     </div>
     <div class="mt-1">

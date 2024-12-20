@@ -57,20 +57,25 @@ export const useAuthStore = defineStore("authStore", {
           }
         );
         console.log("response", res);
-        const data = res.data;
-        console.log("data", data);
-        this.user = data.user;
-        this.token = data.token;
-        console.log("user", this.user);
+        if (res.data.status === "success") {
+          const data = res.data;
+          console.log("data", data);
+          this.user = data.user;
+          this.token = data.token;
+          console.log("user", this.user);
 
-        localStorage.setItem("token", this.token);
-        localStorage.setItem("user", this.user);
-        router.push("/");
-        toast.success("Login successful!", { timeout: 3000 });
-        console.log(data);
+          localStorage.setItem("token", this.token);
+          localStorage.setItem("user", this.user);
+          router.push("/");
+          toast.success("Login successful!", { timeout: 3000 });
+        } else {
+          toast.error(res.data.error);
+        }
+        // console.log(data);
       } catch (error) {
-        console.error("Error logging in", error);
-        toast.error("Login failed!");
+        // console.error("Error logging in", error);
+        // toast.error("Login failed!");
+        toast.error(error.response.data.error);
       }
     },
     async logout() {

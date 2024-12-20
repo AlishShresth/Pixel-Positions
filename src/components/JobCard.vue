@@ -26,7 +26,7 @@ defineProps({
       </p>
     </div>
     <div class="flex justify-between items-center mt-auto">
-      <div>
+      <div class="flex flex-wrap gap-1">
         <Tag v-for="tag in job.tags" :tag="tag" />
       </div>
       <EmployerLogo :employer="job.employer" :width="42" />
