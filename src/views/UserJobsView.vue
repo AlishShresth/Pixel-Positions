@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useJobsStore } from "../stores/jobs";
 import { useAuthStore } from "../stores/auth";
 import JobCardWide from "../components/JobCardWide.vue";
+import PageHeading from "../components/PageHeading.vue";
 
 const jobsStore = useJobsStore();
 const authStore = useAuthStore();
@@ -22,5 +23,9 @@ const userRecentJobs = ref(
   <div class="space-y-6">
     <JobCardWide v-for="job in userFilteredJobs" :job="job" :edit="true" />
     <JobCardWide v-for="job in userRecentJobs" :job="job" :edit="true" />
+    <PageHeading
+      v-if="userFilteredJobs.length === 0 && userRecentJobs.length === 0"
+      >No jobs posted yet</PageHeading
+    >
   </div>
 </template>

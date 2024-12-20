@@ -30,7 +30,7 @@ export const useAuthStore = defineStore("authStore", {
         );
         console.log(res.data);
         const data = res.data;
-        this.user = data.user;
+        this.user = JSON.stringify(data.user);
         this.token = data.token;
         localStorage.setItem("token", this.token);
         localStorage.setItem("user", this.user);
@@ -60,7 +60,7 @@ export const useAuthStore = defineStore("authStore", {
         if (res.data.status === "success") {
           const data = res.data;
           console.log("data", data);
-          this.user = data.user;
+          this.user = JSON.stringify(data.user);
           this.token = data.token;
           console.log("user", this.user);
 
