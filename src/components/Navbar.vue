@@ -9,6 +9,8 @@ const isActiveLink = (routePath) => {
 };
 
 const authStore = useAuthStore();
+
+const user = JSON.parse(authStore.user);
 </script>
 
 <template>
@@ -66,6 +68,17 @@ const authStore = useAuthStore();
         >
       </div>
       <div v-show="authStore.isAuthenticated" class="space-x-6 font-bold flex">
+        <RouterLink
+          to="/profile"
+          :class="[
+            isActiveLink('/profile')
+              ? 'underline underline-white/10 underline-offset-4'
+              : 'hover:underline hover:underline-white/10 hover:underline-offset-4',
+            'px-3',
+            'py-2',
+          ]"
+          >{{ user?.name?.split(" ")[0] }}</RouterLink
+        >
         <RouterLink
           to="/"
           @click="authStore.logout()"

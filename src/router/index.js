@@ -9,7 +9,7 @@ import RegisterView from "../views/Auth/RegisterView.vue";
 import LoginView from "../views/Auth/LoginView.vue";
 import EditJobView from "../views/Job/EditJobView.vue";
 import ResultView from "../views/Job/ResultView.vue";
-
+import UserView from "../views/UserView.vue";
 const toast = useToast();
 
 const router = createRouter({
@@ -63,6 +63,11 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
       },
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: UserView,
     },
     {
       path: "/:catchAll(.*)",
