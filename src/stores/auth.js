@@ -31,6 +31,7 @@ export const useAuthStore = defineStore("authStore", {
         console.log(res.data);
         const data = res.data;
         this.user = data.user;
+        this.token = data.token;
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", data.user);
         router.push("/");
@@ -59,6 +60,7 @@ export const useAuthStore = defineStore("authStore", {
         const data = res.data;
         console.log("data", data);
         this.user = data.user;
+        this.token = data.token;
         console.log(this.user);
 
         localStorage.setItem("token", data.token);

@@ -46,8 +46,11 @@ export const useJobsStore = defineStore("jobsStore", {
           }
         );
         this.isJobPosting = false;
-        router.push("/");
-        toast.success("Job posted successfully!");
+        this.getJobs();
+        router.push("/jobs");
+        toast.success("Job posted successfully!", {
+          timeout: 3000,
+        });
       } catch (err) {
         console.error("Error posting job ", err);
         toast.error("Job posting failed!", {
