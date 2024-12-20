@@ -1,9 +1,6 @@
 <script setup>
 import PageHeading from "../../components/PageHeading.vue";
-import axios from "axios";
 import { reactive } from "vue";
-
-import router from "../../router";
 
 const formData = reactive({
   email: "",

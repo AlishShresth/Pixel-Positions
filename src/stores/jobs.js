@@ -3,6 +3,7 @@ import router from "../router";
 import { defineStore } from "pinia";
 import { useToast } from "vue-toastification";
 import { useAuthStore } from "./auth";
+
 const toast = useToast();
 
 export const useJobsStore = defineStore("jobsStore", {
@@ -10,14 +11,18 @@ export const useJobsStore = defineStore("jobsStore", {
     return {
       featuredJobs: [],
       recentJobs: [],
+      isJobLoading: false,
+      isJobPosting: false,
     };
   },
   actions: {
     async getJobs() {
       try {
+        this.isJobLoading = true;
         const res = await axios.get(`/api/`);
         // console.log(res.data);
         const data = res.data.jobs;
+        this.isJobLoading = false;
         this.featuredJobs = data[1];
         this.recentJobs = data[0];
       } catch (err) {
@@ -26,6 +31,7 @@ export const useJobsStore = defineStore("jobsStore", {
     },
     async postJob(apiRoute, formData) {
       try {
+        this.isJobPosting = true;
         const authStore = useAuthStore();
         console.log(formData);
         const res = await axios.post(
@@ -39,6 +45,7 @@ export const useJobsStore = defineStore("jobsStore", {
             },
           }
         );
+        this.isJobPosting = false;
         router.push("/");
         toast.success("Job posted successfully!");
       } catch (err) {
