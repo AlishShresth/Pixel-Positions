@@ -13,6 +13,7 @@ export const useJobsStore = defineStore("jobsStore", {
       recentJobs: [],
       isLoading: false,
       currentJob: {},
+      searchResult: [],
     };
   },
   actions: {
@@ -120,6 +121,18 @@ export const useJobsStore = defineStore("jobsStore", {
         router.push("/jobs");
       } catch (error) {
         console.error("Error deleting job", error);
+        toast.error(error.response.data.error);
+      }
+    },
+    async searchJobs(apiRoute) {
+      try {
+        this.isLoading = true;
+        const res = await axios.get(`/api/${apiRoute}`);
+        this.searchResults = res.data.jobs;
+        this.isLoading = false;
+        router.push("/jobs/search");
+      } catch (error) {
+        console.error(error);
         toast.error(error.response.data.error);
       }
     },

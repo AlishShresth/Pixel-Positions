@@ -8,6 +8,7 @@ import NotFoundView from "../views/NotFoundView.vue";
 import RegisterView from "../views/Auth/RegisterView.vue";
 import LoginView from "../views/Auth/LoginView.vue";
 import EditJobView from "../views/Job/EditJobView.vue";
+import ResultView from "../views/Job/ResultView.vue";
 
 const toast = useToast();
 
@@ -34,11 +35,11 @@ const router = createRouter({
       name: "jobs",
       component: JobsView,
     },
-    // {
-    //   path: "/jobs/:id",
-    //   name: "job",
-    //   component: JobView,
-    // },
+    {
+      path: "/jobs/search",
+      name: "job-search",
+      component: ResultView,
+    },
     {
       path: "/jobs/create",
       name: "add-job",
