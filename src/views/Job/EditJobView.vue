@@ -1,15 +1,15 @@
 <script setup>
 import { ref, reactive, watch, onMounted } from "vue";
-import { useJobsStore } from "../stores/jobs";
+import { useJobsStore } from "../../stores/jobs";
 import { useRoute } from "vue-router";
 
-import PageHeading from "../components/PageHeading.vue";
-import Form from "../components/form/Form.vue";
-import FormInput from "../components/form/FormInput.vue";
-import FormSelect from "../components/form/FormSelect.vue";
-import Checkbox from "../components/form/Checkbox.vue";
-import Divider from "../components/form/Divider.vue";
-import FormButton from "../components/form/FormButton.vue";
+import PageHeading from "../../components/PageHeading.vue";
+import Form from "../../components/form/Form.vue";
+import FormInput from "../../components/form/FormInput.vue";
+import FormSelect from "../../components/form/FormSelect.vue";
+import Checkbox from "../../components/form/Checkbox.vue";
+import Divider from "../../components/form/Divider.vue";
+import FormButton from "../../components/form/FormButton.vue";
 import RotateLoader from "vue-spinner/src/RotateLoader.vue";
 
 const route = useRoute();
@@ -55,18 +55,18 @@ const confirmDelete = (jobId) => {
   }
 };
 const handleDelete = (jobId) => {
-  router.push("/jobs/delete/" + jobId);
+  jobsStore.deleteJob(`jobs/${jobId}`);
 };
 </script>
 
 <template>
   <PageHeading>Edit job</PageHeading>
   <div class="w-full flex items-center justify-center mt-20">
-    <RotateLoader v-if="jobsStore.isJobLoading" />
+    <RotateLoader v-if="jobsStore.isLoading" />
   </div>
   <Form
     @submit.prevent="jobsStore.editJob(`/jobs/${jobId}`, formData)"
-    v-if="!jobsStore.isJobLoading"
+    v-if="!jobsStore.isLoading"
   >
     <FormInput
       name="title"
@@ -113,7 +113,7 @@ const handleDelete = (jobId) => {
       <FormButton
         :type="`button`"
         :style="`danger`"
-        @click="confirmDelete(job.value.id)"
+        @click="confirmDelete(jobId)"
         >Delete</FormButton
       >
     </div>

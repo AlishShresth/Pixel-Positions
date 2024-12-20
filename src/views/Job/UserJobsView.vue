@@ -1,10 +1,10 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
-import { useJobsStore } from "../stores/jobs";
-import { useAuthStore } from "../stores/auth";
+import { useJobsStore } from "../../stores/jobs";
+import { useAuthStore } from "../../stores/auth";
 import RotateLoader from "vue-spinner/src/RotateLoader.vue";
-import JobCardWide from "../components/JobCardWide.vue";
-import PageHeading from "../components/PageHeading.vue";
+import JobCardWide from "../../components/JobCardWide.vue";
+import PageHeading from "../../components/PageHeading.vue";
 
 const jobsStore = useJobsStore();
 const authStore = useAuthStore();
@@ -39,7 +39,15 @@ onMounted(() => {
     <JobCardWide v-for="job in userFilteredJobs" :job="job" :edit="true" />
     <JobCardWide v-for="job in userRecentJobs" :job="job" :edit="true" />
     <div class="w-full flex items-center justify-center mt-20">
-      <RotateLoader v-if="jobsStore.isJobLoading" />
+      <RotateLoader v-if="jobsStore.isLoading" />
+      <PageHeading
+        v-if="
+          userFilteredJobs.length == 0 &&
+          userRecentJobs.length == 0 &&
+          !jobsStore.isLoading
+        "
+        >You haven't posted any jobs yet.</PageHeading
+      >
     </div>
   </div>
 </template>

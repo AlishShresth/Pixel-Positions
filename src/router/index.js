@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useToast } from "vue-toastification";
 import HomeView from "../views/HomeView.vue";
-import JobsView from "../views/JobsView.vue";
-import CreateJobView from "../views/CreateJobView.vue";
-import UserJobsView from "../views/UserJobsView.vue";
+import JobsView from "../views/Job/JobsView.vue";
+import CreateJobView from "../views/Job/CreateJobView.vue";
+import UserJobsView from "../views/Job/UserJobsView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import RegisterView from "../views/Auth/RegisterView.vue";
 import LoginView from "../views/Auth/LoginView.vue";
-import EditJobView from "../views/EditJobView.vue";
+import EditJobView from "../views/Job/EditJobView.vue";
 
 const toast = useToast();
 
@@ -21,7 +21,7 @@ const router = createRouter({
     },
     {
       path: "/register",
-      name: "signup",
+      name: "register",
       component: RegisterView,
     },
     {

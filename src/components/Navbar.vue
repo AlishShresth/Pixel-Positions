@@ -56,7 +56,7 @@ const authStore = useAuthStore();
         <RouterLink
           to="/jobs/update"
           :class="[
-            isActiveLink('/jobs/edit')
+            isActiveLink('/jobs/update')
               ? 'underline underline-white/10 underline-offset-4'
               : 'hover:underline hover:underline-white/10 hover:underline-offset-4',
             'px-3',
@@ -110,7 +110,7 @@ const authStore = useAuthStore();
             'px-3',
             'py-2',
           ]"
-          >Sign Up</RouterLink
+          >Register</RouterLink
         >
       </div>
     </nav>

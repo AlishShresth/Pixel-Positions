@@ -11,38 +11,39 @@ export const useJobsStore = defineStore("jobsStore", {
     return {
       featuredJobs: [],
       recentJobs: [],
-      isJobLoading: false,
-      isJobPosting: false,
+      isLoading: false,
       currentJob: {},
     };
   },
   actions: {
     async getJob(jobId) {
       try {
-        this.isJobLoading = true;
+        this.isLoading = true;
         const res = await axios.get(`/api/jobs/${jobId}`);
         const data = res.data.job;
         this.currentJob = data;
-        this.isJobLoading = false;
-      } catch (err) {
-        console.log(err);
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.error);
       }
     },
     async getJobs() {
       try {
-        this.isJobLoading = true;
+        this.isLoading = true;
         const res = await axios.get(`/api/`);
         const data = res.data.jobs;
-        this.isJobLoading = false;
         this.featuredJobs = data[1];
         this.recentJobs = data[0];
-      } catch (err) {
-        console.log(err);
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.error);
       }
     },
     async postJob(apiRoute, formData) {
       try {
-        this.isJobPosting = true;
+        this.isLoading = true;
         const authStore = useAuthStore();
         console.log(formData);
         const res = await axios.post(
@@ -56,24 +57,22 @@ export const useJobsStore = defineStore("jobsStore", {
             },
           }
         );
-        this.isJobPosting = false;
+        this.isLoading = false;
         this.getJobs();
         router.push("/jobs");
         toast.success("Job posted successfully!", {
           timeout: 3000,
         });
-      } catch (err) {
-        console.error("Error posting job ", err);
-        toast.error("Job posting failed!", {
-          timeout: 3000,
-        });
+      } catch (error) {
+        console.error("Error posting job ", error);
+        toast.error(error.response.data.error);
       }
     },
 
     async editJob(apiRoute, formData) {
       try {
         const authStore = useAuthStore();
-        this.isJobPosting = true;
+        this.isLoading = true;
         const res = await axios.patch(
           `/api/${apiRoute}`,
           JSON.stringify(formData),
@@ -87,18 +86,42 @@ export const useJobsStore = defineStore("jobsStore", {
         );
         console.log(res.data);
         this.getJobs();
+        this.isLoading = false;
         router.push("/jobs");
         toast.success("Job updated successfully!", {
           timeout: 3000,
         });
-      } catch (err) {
-        console.error("Error editing job", err);
-        toast.error("Job editing failed!", {
-          timeout: 3000,
-        });
+      } catch (error) {
+        console.error("Error editing job", error);
+        toast.error(error.response.data.error);
       }
     },
 
-    async deleteJob(apiRoute, formData) {},
+    async deleteJob(apiRoute) {
+      try {
+        this.isLoading = true;
+        const authStore = useAuthStore();
+        const res = await axios.delete(
+          `/api/${apiRoute}`,
+
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authStore.token}`,
+            },
+          }
+        );
+        toast.success("Job deleted successfully!", {
+          timeout: 3000,
+        });
+        this.getJobs();
+        this.isLoading = false;
+        router.push("/jobs");
+      } catch (error) {
+        console.error("Error deleting job", error);
+        toast.error(error.response.data.error);
+      }
+    },
   },
 });

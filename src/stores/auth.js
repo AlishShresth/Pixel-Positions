@@ -28,7 +28,7 @@ export const useAuthStore = defineStore("authStore", {
             },
           }
         );
-        console.log(res.data);
+        // console.log(res.data);
         const data = res.data;
         this.user = JSON.stringify(data.user);
         this.token = data.token;
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore("authStore", {
         console.log(data);
       } catch (error) {
         console.error("Error registering user:", error);
-        toast.error("Registration failed!");
+        toast.error(error.response.data.error);
       }
     },
     async login(apiRoute, formData) {
@@ -57,31 +57,25 @@ export const useAuthStore = defineStore("authStore", {
           }
         );
         console.log("response", res);
-        if (res.data.status === "success") {
-          const data = res.data;
-          console.log("data", data);
-          this.user = JSON.stringify(data.user);
-          this.token = data.token;
-          console.log("user", this.user);
+        const data = res.data;
+        console.log("data", data);
+        this.user = JSON.stringify(data.user);
+        this.token = data.token;
+        console.log("user", this.user);
 
-          localStorage.setItem("token", this.token);
-          localStorage.setItem("user", this.user);
-          router.push("/");
-          toast.success("Login successful!", { timeout: 3000 });
-        } else {
-          toast.error(res.data.error);
-        }
+        localStorage.setItem("token", this.token);
+        localStorage.setItem("user", this.user);
+        router.push("/");
+        toast.success("Login successful!", { timeout: 3000 });
         // console.log(data);
       } catch (error) {
-        // console.error("Error logging in", error);
-        // toast.error("Login failed!");
+        console.error("Error logging in", error);
         toast.error(error.response.data.error);
       }
     },
     async logout() {
       try {
-        console.log(this.token);
-        await axios.post(
+        const res = await axios.post(
           `/api/logout`,
           {},
           {
@@ -100,7 +94,7 @@ export const useAuthStore = defineStore("authStore", {
         toast.success("Logout successful!", { timeout: 3000 });
       } catch (error) {
         console.error("Error logging out", error);
-        toast.error("Logout failed!");
+        toast.error(error.response.data.error);
       }
     },
   },

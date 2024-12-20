@@ -12,7 +12,7 @@ const jobsStore = useJobsStore();
       <h3 class="font-bold text-xl">Featured Jobs</h3>
     </div>
     <div
-      v-if="jobsStore.isJobLoading"
+      v-if="jobsStore.isLoading"
       class="w-full flex items-center justify-center mt-20"
     >
       <RotateLoader />

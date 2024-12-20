@@ -1,14 +1,14 @@
 <script setup>
 import { reactive } from "vue";
-import { useJobsStore } from "../stores/jobs";
+import { useJobsStore } from "../../stores/jobs";
 
-import PageHeading from "../components/PageHeading.vue";
-import Form from "../components/form/Form.vue";
-import FormInput from "../components/form/FormInput.vue";
-import FormSelect from "../components/form/FormSelect.vue";
-import Checkbox from "../components/form/Checkbox.vue";
-import Divider from "../components/form/Divider.vue";
-import FormButton from "../components/form/FormButton.vue";
+import PageHeading from "../../components/PageHeading.vue";
+import Form from "../../components/form/Form.vue";
+import FormInput from "../../components/form/FormInput.vue";
+import FormSelect from "../../components/form/FormSelect.vue";
+import Checkbox from "../../components/form/Checkbox.vue";
+import Divider from "../../components/form/Divider.vue";
+import FormButton from "../../components/form/FormButton.vue";
 
 const jobsStore = useJobsStore();
 
