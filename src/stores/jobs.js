@@ -137,7 +137,19 @@ export const useJobsStore = defineStore("jobsStore", {
         this.searchResults = res.data.jobs;
         router.push("/jobs/search");
       } catch (error) {
+        console.error(error);
+        toast.error(error.response.data.error);
+      } finally {
         this.isLoading = false;
+      }
+    },
+    async getJobsByTag(apiRoute, tag) {
+      try {
+        this.isLoading = true;
+        const res = await axios.get(`/api/${apiRoute}`);
+        this.searchResults = res.data.jobs;
+        router.push(`/tags/${tag}`);
+      } catch (error) {
         console.error(error);
         toast.error(error.response.data.error);
       } finally {

@@ -65,6 +65,11 @@ const router = createRouter({
       component: () => import("../views/UserView.vue"),
     },
     {
+      path: "/tags/:tag",
+      name: "job-search",
+      component: () => import("../views/Job/ResultView.vue"),
+    },
+    {
       path: "/:catchAll(.*)",
       name: "not-found",
       component: () => import("../views/NotFoundView.vue"),
