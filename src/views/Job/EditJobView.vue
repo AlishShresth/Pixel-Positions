@@ -46,17 +46,6 @@ watch(
     }
   }
 );
-const job = ref(jobsStore.currentJob);
-
-const confirmDelete = (jobId) => {
-  const confirmed = confirm("Are you sure you want to delete this job?");
-  if (confirmed) {
-    handleDelete(jobId);
-  }
-};
-const handleDelete = (jobId) => {
-  jobsStore.deleteJob(`jobs/${jobId}`);
-};
 </script>
 
 <template>
@@ -110,12 +99,6 @@ const handleDelete = (jobId) => {
     />
     <div class="space-x-2">
       <FormButton type="submit">Update</FormButton>
-      <FormButton
-        :type="`button`"
-        :style="`danger`"
-        @click="confirmDelete(jobId)"
-        >Delete</FormButton
-      >
     </div>
   </Form>
 </template>

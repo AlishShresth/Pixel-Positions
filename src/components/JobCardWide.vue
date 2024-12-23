@@ -4,10 +4,22 @@ import Panel from "./Panel.vue";
 import FormButton from "../components/form/FormButton.vue";
 import Tag from "./Tag.vue";
 import EmployerLogo from "./EmployerLogo.vue";
+import { useJobsStore } from "../stores/jobs";
 defineProps({
   job: Object,
   edit: Boolean,
 });
+
+const jobsStore = useJobsStore();
+const confirmDelete = (jobId) => {
+  const confirmed = confirm("Are you sure you want to delete this job?");
+  if (confirmed) {
+    handleDelete(jobId);
+  }
+};
+const handleDelete = (jobId) => {
+  jobsStore.deleteJob(`jobs/${jobId}`);
+};
 </script>
 
 <template>
@@ -35,10 +47,18 @@ defineProps({
             <Tag v-for="tag in job.tags" :tag="tag" />
           </div>
         </div>
-        <div v-if="edit" class="flex gap-x-2">
+        <div v-if="edit" class="flex gap-x-2 mt-3">
           <RouterLink :to="`/jobs/edit/${job.id}`" :job="job">
             <FormButton>Update</FormButton>
           </RouterLink>
+          <div class="space-x-2">
+            <FormButton
+              :type="`button`"
+              :style="`danger`"
+              @click="confirmDelete(job.id)"
+              >Delete</FormButton
+            >
+          </div>
         </div>
       </div>
       <EmployerLogo :employer="job.employer" />
