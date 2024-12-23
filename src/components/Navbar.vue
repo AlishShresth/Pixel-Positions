@@ -18,7 +18,12 @@ const authStore = useAuthStore();
       class="flex justify-between items-center py-4 border-b border-white/10"
     >
       <RouterLink to="/">
-        <img :src="logo" alt="logo" class="h-10 w-auto" />
+        <img
+          :src="logo"
+          alt="Pixel positions logo"
+          class="h-10 w-auto"
+          loading="lazy"
+        />
       </RouterLink>
       <div class="space-x-6 font-bold">
         <RouterLink

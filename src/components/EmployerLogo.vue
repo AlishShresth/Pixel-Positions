@@ -11,5 +11,5 @@ defineProps({
 </script>
 
 <template>
-  <img :src="employer.logo" :width="width" class="rounded-xl" />
+  <img :src="employer.logo" :width="width" class="rounded-xl" loading="lazy" />
 </template>
