@@ -1,6 +1,9 @@
 <script setup>
-import PageHeading from "../../components/PageHeading.vue";
 import { reactive } from "vue";
+import PageHeading from "../../components/PageHeading.vue";
+import Form from "../../components/form/Form.vue";
+import FormInput from "../../components/form/FormInput.vue";
+import FormButton from "../../components/form/FormButton.vue";
 
 const formData = reactive({
   email: "",
@@ -13,38 +16,26 @@ const authStore = useAuthStore();
 
 <template>
   <PageHeading>Login</PageHeading>
-  <form
+  <Form
     class="max-w-2xl mx-auto space-y-6"
     @submit.prevent="authStore.login('login', formData)"
   >
-    <div class="mt-1">
-      <label for="email" class="font-bold">Email</label>
-      <input
-        name="email"
-        id="email"
-        type="email"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.email"
-        required
-      />
-    </div>
-    <div class="mt-1">
-      <label for="password" class="font-bold">Password</label>
-      <input
-        name="password"
-        id="password"
-        type="password"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.password"
-        required
-      />
-    </div>
-
-    <button
-      class="bg-blue-700 rounded py-2 px-6 font-bold cursor-pointer hover:bg-blue-900"
-      type="submit"
-    >
-      Login
-    </button>
-  </form>
+    <FormInput
+      name="email"
+      label="Email"
+      :type="`email`"
+      v-model="formData.email"
+      placeholder="Your email address here"
+      required
+    />
+    <FormInput
+      name="password"
+      label="Password"
+      :type="`password`"
+      v-model="formData.password"
+      placeholder="Your password here"
+      :required="true"
+    />
+    <FormButton>Submit</FormButton>
+  </Form>
 </template>

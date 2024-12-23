@@ -14,7 +14,7 @@ defineProps({
   <button
     :class="{
       'rounded py-2 px-6 font-bold transition-colors duration-300': true,
-      'bg-blue-800 hover:bg-blue-800/70 ': style === 'primary',
+      'bg-blue-700 hover:bg-blue-900': style === 'primary',
       'bg-red-800 hover:bg-red-800/70': style === 'danger',
     }"
     :type="type"

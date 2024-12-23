@@ -2,6 +2,11 @@
 import { reactive } from "vue";
 import { useAuthStore } from "../../stores/auth";
 import PageHeading from "../../components/PageHeading.vue";
+import Form from "../../components/form/Form.vue";
+import FormInput from "../../components/form/FormInput.vue";
+import FormButton from "../../components/form/FormButton.vue";
+import Divider from "../../components/form/Divider.vue";
+import FormLabel from "../../components/form/FormLabel.vue";
 
 const authStore = useAuthStore();
 
@@ -26,86 +31,62 @@ const onFileSelected = (e) => {
 
 <template>
   <PageHeading>Register</PageHeading>
-  <form
-    class="max-w-2xl mx-auto space-y-6"
+  <Form
     @submit.prevent="authStore.register('register', formData)"
     enctype="multipart/form-data"
   >
-    <div class="mt-1">
-      <label for="name" class="font-bold">Name</label>
-      <input
-        name="name"
-        id="name"
-        type="text"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.name"
-        required
-      />
-    </div>
-    <div class="mt-1">
-      <label for="email" class="font-bold">Email</label>
-      <input
-        name="email"
-        id="email"
-        type="email"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.email"
-        required
-      />
-    </div>
-    <div class="mt-1">
-      <label for="password" class="font-bold">Password</label>
-      <input
-        name="password"
-        id="password"
-        type="password"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.password"
-        required
-      />
-    </div>
-    <div class="mt-1">
-      <label for="password_confirmation" class="font-bold"
-        >Confirm Password</label
-      >
-      <input
-        name="password_confirmation"
-        id="password_confirmation"
-        type="password"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.password_confirmation"
-        required
-      />
-    </div>
-    <div>
-      <div class="bg-white/10 my-10 h-px w-full"></div>
-    </div>
-    <div class="mt-1">
-      <label for="employer" class="font-bold">Employer Name</label>
-      <input
-        name="employer"
-        id="employer"
-        type="text"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        v-model="formData.employer"
-        required
-      />
-    </div>
-    <div class="mt-1">
-      <label for="logo" class="font-bold">Employer Logo</label>
-      <input
-        name="logo"
-        id="logo"
-        type="file"
-        class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
-        @change="onFileSelected"
-      />
-    </div>
-    <button
-      class="bg-blue-700 rounded py-2 px-6 font-bold cursor-pointer hover:bg-blue-900"
-      type="submit"
-    >
-      Create Account
-    </button>
-  </form>
+    <FormInput
+      label="Name"
+      name="name"
+      id="name"
+      v-model="formData.name"
+      placeholder="Your name here"
+      required
+    />
+    <FormInput
+      label="Email"
+      name="email"
+      type="email"
+      id="email"
+      v-model="formData.email"
+      placeholder="Your email address here"
+      required
+    />
+    <FormInput
+      label="Password"
+      name="password"
+      type="password"
+      id="password"
+      v-model="formData.password"
+      placeholder="Enter your password"
+      required
+    />
+    <FormInput
+      label="Password Confirmation"
+      name="password_confirmation"
+      type="password"
+      id="password_confirmation"
+      v-model="formData.password_confirmation"
+      placeholder="Confirm your password"
+      required
+    />
+    <Divider />
+    <FormInput
+      label="Employer Name"
+      name="employer"
+      id="employer"
+      v-model="formData.employer"
+      placeholder="Employer name"
+      required
+    />
+    <FormLabel name="logo" label="Employer Logo" />
+    <input
+      name="logo"
+      id="logo"
+      type="file"
+      class="rounded-xl bg-white/10 border border-white/10 px-5 py-3 w-full"
+      @change="onFileSelected"
+    />
+    <FormButton> Create Account </FormButton>
+  </Form>
 </template>

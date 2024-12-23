@@ -1,15 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useToast } from "vue-toastification";
 import HomeView from "../views/HomeView.vue";
-import JobsView from "../views/Job/JobsView.vue";
-import CreateJobView from "../views/Job/CreateJobView.vue";
-import UserJobsView from "../views/Job/UserJobsView.vue";
-import NotFoundView from "../views/NotFoundView.vue";
-import RegisterView from "../views/Auth/RegisterView.vue";
-import LoginView from "../views/Auth/LoginView.vue";
-import EditJobView from "../views/Job/EditJobView.vue";
-import ResultView from "../views/Job/ResultView.vue";
-import UserView from "../views/UserView.vue";
+
 const toast = useToast();
 
 const router = createRouter({
@@ -23,27 +15,30 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      component: RegisterView,
+      // Route level code-splitting
+      // this generates a separate chunk (Register.js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/Auth/RegisterView.vue"),
     },
     {
       path: "/login",
       name: "login",
-      component: LoginView,
+      component: () => import("../views/Auth/LoginView.vue"),
     },
     {
       path: "/jobs",
       name: "jobs",
-      component: JobsView,
+      component: () => import("../views/Job/JobsView.vue"),
     },
     {
       path: "/jobs/search",
       name: "job-search",
-      component: ResultView,
+      component: () => import("../views/Job/ResultView.vue"),
     },
     {
       path: "/jobs/create",
       name: "add-job",
-      component: CreateJobView,
+      component: () => import("../views/Job/CreateJobView.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -51,7 +46,7 @@ const router = createRouter({
     {
       path: "/jobs/update/",
       name: "user-job",
-      component: UserJobsView,
+      component: () => import("../views/Job/UserJobsView.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -59,7 +54,7 @@ const router = createRouter({
     {
       path: "/jobs/edit/:id",
       name: "edit-job",
-      component: EditJobView,
+      component: () => import("../views/Job/EditJobView.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -67,12 +62,12 @@ const router = createRouter({
     {
       path: "/profile",
       name: "profile",
-      component: UserView,
+      component: () => import("../views/UserView.vue"),
     },
     {
       path: "/:catchAll(.*)",
       name: "not-found",
-      component: NotFoundView,
+      component: () => import("../views/NotFoundView.vue"),
     },
   ],
 });
