@@ -1,12 +1,12 @@
-import axios from "axios";
-import router from "../router";
-import { defineStore } from "pinia";
-import { useToast } from "vue-toastification";
-import { useAuthStore } from "./auth";
+import axios from 'axios';
+import router from '../router';
+import { defineStore } from 'pinia';
+import { useToast } from 'vue-toastification';
+import { useAuthStore } from './auth';
 
 const toast = useToast();
 
-export const useJobsStore = defineStore("jobsStore", {
+export const useJobsStore = defineStore('jobsStore', {
   state: () => {
     return {
       featuredJobs: [],
@@ -14,6 +14,7 @@ export const useJobsStore = defineStore("jobsStore", {
       isLoading: false,
       currentJob: {},
       searchResult: [],
+      filteredResult: [],
     };
   },
   actions: {
@@ -54,20 +55,20 @@ export const useJobsStore = defineStore("jobsStore", {
           JSON.stringify(formData),
           {
             headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${authStore.token}`,
             },
           }
         );
 
         this.getJobs();
-        router.push("/jobs");
-        toast.success("Job posted successfully!", {
+        router.push('/jobs');
+        toast.success('Job posted successfully!', {
           timeout: 3000,
         });
       } catch (error) {
-        console.error("Error posting job ", error);
+        console.error('Error posting job ', error);
         toast.error(error.response.data.error);
       } finally {
         this.isLoading = false;
@@ -83,20 +84,20 @@ export const useJobsStore = defineStore("jobsStore", {
           JSON.stringify(formData),
           {
             headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${authStore.token}`,
             },
           }
         );
         console.log(res.data);
         this.getJobs();
-        router.push("/jobs");
-        toast.success("Job updated successfully!", {
+        router.push('/jobs');
+        toast.success('Job updated successfully!', {
           timeout: 3000,
         });
       } catch (error) {
-        console.error("Error editing job", error);
+        console.error('Error editing job', error);
         toast.error(error.response.data.error);
       } finally {
         this.isLoading = false;
@@ -112,19 +113,19 @@ export const useJobsStore = defineStore("jobsStore", {
 
           {
             headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${authStore.token}`,
             },
           }
         );
-        toast.success("Job deleted successfully!", {
+        toast.success('Job deleted successfully!', {
           timeout: 3000,
         });
         this.getJobs();
-        router.push("/jobs");
+        router.push('/jobs');
       } catch (error) {
-        console.error("Error deleting job", error);
+        console.error('Error deleting job', error);
         toast.error(error.response.data.error);
       } finally {
         this.isLoading = false;
@@ -135,7 +136,7 @@ export const useJobsStore = defineStore("jobsStore", {
         this.isLoading = true;
         const res = await axios.get(`/api/${apiRoute}`);
         this.searchResults = res.data.jobs;
-        router.push("/jobs/search");
+        router.push('/jobs/search');
       } catch (error) {
         console.error(error);
         toast.error(error.response.data.error);
@@ -147,7 +148,7 @@ export const useJobsStore = defineStore("jobsStore", {
       try {
         this.isLoading = true;
         const res = await axios.get(`/api/${apiRoute}`);
-        this.searchResults = res.data.jobs;
+        this.filteredResult = res.data.jobs;
         router.push(`/tags/${tag}`);
       } catch (error) {
         console.error(error);
